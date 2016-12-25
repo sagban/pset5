@@ -4,6 +4,7 @@
  * Computer Science 50
  * Problem Set 5
  *
+ * 
  * Implements a spell-checker.
  */
 
