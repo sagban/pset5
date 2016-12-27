@@ -132,7 +132,7 @@ int main(int argc, char* argv[])
             index = 0;
         }
     }
-
+printf("sagar");
     // check whether there was an error
     if (ferror(fp))
     {
@@ -144,11 +144,14 @@ int main(int argc, char* argv[])
 
     // close text
     fclose(fp);
+    
+    printf("sagar");
 
     // determine dictionary's size
     getrusage(RUSAGE_SELF, &before);
-    unsigned int n = size();
+    unsigned int n = size(dictionary);
     getrusage(RUSAGE_SELF, &after);
+    printf("\n\n\nsagar");
 
     // calculate time to determine dictionary's size
     time_size = calculate(&before, &after);
