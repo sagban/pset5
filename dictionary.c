@@ -11,16 +11,20 @@
 #include<stdio.h>
 #include<cs50.h>
 #include<string.h>
+#include<ctype.h>
 
 #include "dictionary.h"
 
 
-
+// hash table
 typedef struct node
 {
     char word[46];
     struct node* next;
 }node;
+
+node* hashtables[26];
+
 /**
  * hash function
  */
@@ -29,25 +33,28 @@ typedef struct node
       return val[0] % 97;
   }
   
- 
-
 /**
  * Returns true if word is in dictionary else false.
  */
 bool check(const char* word)
 {
-    node* cursor;
-    cursor = hashtables[hashf(word)];
+    node* cursor =  hashtables[hashf(word)];
+    printf("saghar2\n");
     while(cursor != NULL)
     {
-        if(strcmp(word,cursor -> word))
+        printf("saghar44\n");
+        
+        for(int i=0;i<strlen(cursor -> word);i++)
+        {
+            putchar(tolower(cursor -> word[i]));
+        }
+        int a = strcmp(word,cursor -> word);
+        if(a==0)
         {
             return true;
         }
         cursor = cursor -> next;
     }
-    
-    
     return false;
 }
 
@@ -65,32 +72,31 @@ bool load(const char* dictionary)
     // initialized the hash function
     else
     {
-        
-        node* new_word; 
+        node* new_word;
         new_word = malloc(sizeof(node));
-        node* hashtables[26] = {NULL};
         
-        while(fscanf(inptr, "%s", new_word -> word))
+        for(int b=0;b<=25;b++)
+        {
+            hashtables[b] = NULL;
+        }
+    
+        while(fscanf(inptr, "%s", new_word -> word) != EOF)
         {
             int x = hashf(new_word -> word);
-            
-            
             if(hashtables[x] == NULL)
             {
                 hashtables[x] = malloc(sizeof(node));
-                
             }
-            
-            new_word -> next = hashtables[x];
-            while(new_word != NULL)
+            printf("2cjdcd");
+            node* cursor = hashtables[x];
+            while(cursor -> next != NULL)
             {
-                new_word = new_word -> next;
+                cursor = cursor -> next;
             }
-            
-            
+            new_word -> next = cursor -> next;
+            cursor -> next = new_word;
+           
         }
-        
-        
         return true;
     }
 
@@ -99,17 +105,19 @@ bool load(const char* dictionary)
 /**
  * Returns number of words in dictionary if loaded else 0 if not yet loaded.
  */
-unsigned int size(const char* dictionary)
+unsigned int size(void)
 {
     // TODO
-    int count = 0;
-    FILE* inptr = fopen(dictionary,"r");
-    node* new = NULL;
-     while(fscanf(inptr, "%s", new -> word) != EOF)
-     {
-         count++;
-     }
-     fclose(inptr);
+    int count =0;
+    for(int i=0;i<26;i++)
+    {
+        node* crawler = hashtables[i];
+        while(crawler -> next != NULL)
+        {
+            count++;
+            crawler = crawler -> next;
+        }
+    }
     return count;
 }
 
