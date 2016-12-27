@@ -4,7 +4,6 @@
  * Computer Science 50
  * Problem Set 5
  *
- * 
  * Implements a spell-checker.
  */
 
@@ -112,7 +111,7 @@ int main(int argc, char* argv[])
 
             // update counter
             words++;
-
+            
             // check word's spelling
             getrusage(RUSAGE_SELF, &before);
             bool misspelled = !check(word);
@@ -132,7 +131,7 @@ int main(int argc, char* argv[])
             index = 0;
         }
     }
-printf("sagar");
+
     // check whether there was an error
     if (ferror(fp))
     {
@@ -144,14 +143,11 @@ printf("sagar");
 
     // close text
     fclose(fp);
-    
-    printf("sagar");
 
     // determine dictionary's size
     getrusage(RUSAGE_SELF, &before);
-    unsigned int n = size(dictionary);
+    unsigned int n = size();
     getrusage(RUSAGE_SELF, &after);
-    printf("\n\n\nsagar");
 
     // calculate time to determine dictionary's size
     time_size = calculate(&before, &after);
@@ -188,7 +184,6 @@ printf("sagar");
 
 /**
  * Returns number of seconds between b and a.
- * 
  */
 double calculate(const struct rusage* b, const struct rusage* a)
 {
