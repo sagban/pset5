@@ -132,30 +132,33 @@ unsigned int size(void)
  * this function helps in unload dictionary
  * by reccursion
  */
+ 
  void del(node* head)
  {
-     node* cursor = head;
-     if(cursor -> next == NULL)
+     if(head == NULL)
      {
-         free(cursor);
+         free(head);
      }
      else
      {
-         del(cursor -> next);
+         del(head -> next);
      }
      
  }
- 
+
 
 /**
  * Unloads dictionary from memory.  Returns true if successful else false.
  */
 bool unload(void)
 {
-    // TODO
-    for(int a=0;a<26;a++)
+    // TOD
+    int a = 0;
+    while(a<26)
     {
-        del(hashtables[a]);
+        node* head = hashtables[a];
+        del(head);
+        a++;
     }
     return true;
 }
