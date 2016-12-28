@@ -23,6 +23,7 @@ typedef struct node
     struct node* next;
 }node;
 
+//initialized the hash tables
 node* hashtables[26] = {NULL};
 
 /**
@@ -34,43 +35,18 @@ node* hashtables[26] = {NULL};
   }
   
 
-  // initilized the counter
-  int dictsize = 0;
-/**
- * Returns true if word is in dictionary else false.
- */
-bool check(const char* word)
-{
-    
-    if(hashf(word)>25)
-    {
-        return false;
-    }
-    node* cursor =  hashtables[hashf(word)];
-
-     char temp[46];
-    for(int i=0;i< strlen(word);i++)
-    {
-        temp[i] = tolower(word[i]);
-    }
-    temp[strlen(word)]='\0';
-    while(cursor != NULL)
-    {
-        if(strcmp(temp,cursor -> word) == 0)
-        {
-            return true;
-        }
-        cursor = cursor -> next;
-    }
-    return false;
-}
+// initilized the counter
+int dictsize = 0;
 
 /**
  * Loads dictionary into memory.  Returns true if successful else false.
  */
 bool load(const char* dictionary)
 {
+    //open the dictionary
     FILE* inptr = fopen(dictionary,"r");
+    
+    //check for valid case
     if(inptr==NULL)
     {
         return false;
@@ -79,17 +55,20 @@ bool load(const char* dictionary)
     // initialized the hash function
     else
     {
-        node* new_word;
-        new_word = malloc(sizeof(node));
+        //inilializing a string
+        char word[46];
         
-        while(fscanf(inptr, "%s\n", new_word -> word) != EOF)
+        while(fscanf(inptr, "%s\n",word) != EOF)
         {
             dictsize ++;
-            int x = hashf(new_word -> word);
+            node* new_word = malloc(sizeof(node));
+            int x = hashf(word);
             if(x>25)
             {
                 return false;
             }
+            
+            strcpy(new_word -> word, word);
             if(hashtables[x] == NULL)
             {
                 hashtables[x] = new_word;
@@ -97,9 +76,8 @@ bool load(const char* dictionary)
             }
             else
             {
-                node* head = hashtables[x];
-                new_word -> next = head;
-                head = new_word;
+                new_word -> next = hashtables[x];
+                hashtables[x] = new_word;
             }
             
            
@@ -111,11 +89,41 @@ bool load(const char* dictionary)
 }
 
 /**
+ * Returns true if word is in dictionary else false.
+ */
+bool check(const char* word)
+{
+     char temp[strlen(word)];
+     
+     
+    for(int i = 0; i< strlen(word); i++)
+    {
+        temp[i] = tolower(word[i]);
+    }
+    
+    temp[strlen(word)]='\0';
+    
+    node* cursor =  hashtables[hashf(temp)];
+    
+    while(cursor != NULL)
+    {
+        //word found in hashtables
+        if(strcmp(cursor -> word, temp) == 0)
+        {
+            return true;
+        }
+        cursor = cursor -> next;
+    }
+    
+    return false;
+}
+
+/**
  * Returns number of words in dictionary if loaded else 0 if not yet loaded.
  */
 unsigned int size(void)
 {
-    // TODO
+    // Returns dictionary size
     return dictsize;
 }
 
@@ -147,8 +155,7 @@ bool unload(void)
     // TODO
     for(int a=0;a<26;a++)
     {
-        node* head = hashtables[a];
-        del(head);
+        del(hashtables[a]);
     }
     return true;
 }
