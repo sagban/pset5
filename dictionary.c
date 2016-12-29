@@ -37,25 +37,7 @@ node* hashtables[2000] = {NULL};
           sum += (val[i]);
       }
       
-      if(sum<=2000)
-      {
-          return sum %2000;
-      }
-    
-      else
-      {
-          
-          if(sum%2==0)
-          {
-              sum = sum /2;
-              return sum%1500;
-          }
-          else
-          {
-              sum = (sum + 1)/2;
-              return sum%1500;
-          }
-      }
+      return sum%2000;
   }
   
 
