@@ -24,14 +24,19 @@ typedef struct node
 }node;
 
 //initialized the hash tables
-node* hashtables[26] = {NULL};
+node* hashtables[1000] = {NULL};
 
 /**
  * hash function
  */
   unsigned int hashf(const char* val)
   {
-      return val[0] % 97;
+      int sum=0;
+      for(int i=0;i<strlen(val);i++)
+      {
+          sum += (val[i]%97);
+      }
+      return sum;
   }
   
 
@@ -63,11 +68,7 @@ bool load(const char* dictionary)
             dictsize ++;
             node* new_word = malloc(sizeof(node));
             int x = hashf(word);
-            if(x>25)
-            {
-                return false;
-            }
-            
+         
             strcpy(new_word -> word, word);
             if(hashtables[x] == NULL)
             {
@@ -154,7 +155,7 @@ bool unload(void)
 {
     // TOD
     int a = 0;
-    while(a<26)
+    while(a<100)
     {
         node* head = hashtables[a];
         del(head);
