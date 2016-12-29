@@ -1,11 +1,14 @@
-0.  TODO
-1.  TODO
-2.  TODO
-3.  TODO
-4.  TODO
-5.  TODO
-6.  TODO
-7.  TODO
-8.  TODO
-9.  TODO
-10. TODO
+0.  An artificial long word said to mean a lung disease caused by inhaling very fine ash and sand dust.
+1.  Getrusage() returns resource usage measures for who.like RUSAGE_SELF, RUSAGE_CHILDREN RUSAGE_THREAD
+2.  15
+3.  Passing in values involves copying the two 16 member struts which would take some time and memory. Since the purpose of getrusage() is to track the resources required (including time and RAM) this would lead to inaccuracies. 
+Additionally, if a rusage struct has an undefined value it is automatically set to zero. This negates any dereferencing crashes or extra checks.
+4.  The loop points the cursor at each character until it points at an end of file character.
+If the cursor's current character is alphabetical or an apostrophe proceeded by a letter then the character is added to "word" in the indexth position and the index is incremented by 1. If the character falls under those criteria but the word is too long then the loop passes through the remainder of the word and resets the "index". Similarly numbers are ignored. If a character is not alphabetical or a number or apostrophe then it must be the end of the word. An end of string character is added and the "words" counter is updated. The word is then passed through the mispel
+ling checks.
+5.  If we fscanf, it scan the whole string, then it is difficult to check that the string contains only alphabetical characters.
+6.  Because in load function, when we load a dictionary then there a case of null pointer may arise. And while check, there are two case arises then the given word is in dictionary or not.
+7.  Hashtables[2000]. It contains the character array and pointer to the next node.
+8.  It takes about 0.5 sec in total.
+9.  In the definition of hash function.
+10. No.
