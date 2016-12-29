@@ -34,9 +34,33 @@ node* hashtables[1000] = {NULL};
       int sum=0;
       for(int i=0;i<strlen(val);i++)
       {
-          sum += (val[i]%97);
+          sum += (val[i]);
       }
-      return sum;
+      
+      if(sum<=1000)
+      {
+          return sum %500;
+      }
+      
+      else if(sum>1000 && sum<=2000)
+      {
+          return sum%1000;
+      }
+      
+      else
+      {
+          
+          if(sum%2==0)
+          {
+              sum = sum /2;
+              return sum%1000;
+          }
+          else
+          {
+              sum = (sum + 1)/2;
+              return sum%1000;
+          }
+      }
   }
   
 
@@ -155,7 +179,7 @@ bool unload(void)
 {
     // TOD
     int a = 0;
-    while(a<100)
+    while(a<1000)
     {
         node* head = hashtables[a];
         del(head);
