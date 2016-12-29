@@ -24,7 +24,7 @@ typedef struct node
 }node;
 
 //initialized the hash tables
-node* hashtables[1000] = {NULL};
+node* hashtables[2000] = {NULL};
 
 /**
  * hash function
@@ -37,28 +37,23 @@ node* hashtables[1000] = {NULL};
           sum += (val[i]);
       }
       
-      if(sum<=1000)
+      if(sum<=2000)
       {
-          return sum %500;
+          return sum %2000;
       }
-      
-      else if(sum>1000 && sum<=2000)
-      {
-          return sum%1000;
-      }
-      
+    
       else
       {
           
           if(sum%2==0)
           {
               sum = sum /2;
-              return sum%1000;
+              return sum%1500;
           }
           else
           {
               sum = (sum + 1)/2;
-              return sum%1000;
+              return sum%1500;
           }
       }
   }
@@ -179,7 +174,7 @@ bool unload(void)
 {
     // TOD
     int a = 0;
-    while(a<1000)
+    while(a<2000)
     {
         node* head = hashtables[a];
         del(head);
